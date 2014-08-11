@@ -10,15 +10,38 @@ public:
     ~ofxColorPalette_<PixelType>();
     
     // Sets the Base Color for the Generators
-    void setBaseColor(ofColor_<PixelType>);
+    void setBaseColor(ofColor_<PixelType> col);
 
     //### Generators
     void inline initGen();
+    
+    /// \brief generates random colors
     void generateRandom(int numColors=4);
+    
+    /// \brief generates a monochromatic color palette
+    /// for now the base color is the brightest in the palette
     void generateMonoChromatic(int numColors = 4);
     
+    /// \brief generates a palette with the complementary of the base color
+    /// generates a palette of just 2 colors
+    void generateComplementary();
+    
+    /// \brief generates a palette with the split complementary
+    /// generates a palette of 3 colors
+    /// see http://en.wikipedia.org/wiki/Color_scheme#Split-Complementary for description
+    void generateSplitComplementary();
+    
+    /// \brief generates a palette of analogous colors
+    /// \param numColors the number of Colors which should be generated
+    /// \param spread the area (between 0-1) in which the hue is expanded
+    void generateAnalogous(int numColors = 5, float spread = 0.2);
+    
+    //### Operator overloading
     const ofColor_<PixelType> & operator [] (int n) const;
     ofColor_<PixelType> & operator [] (int n);
+    
+    /// \brief returns the size of the palette
+    int size();
     
 private:
     ofColor_<PixelType> _baseColor;
