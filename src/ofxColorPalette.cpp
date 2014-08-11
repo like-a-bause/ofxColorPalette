@@ -81,7 +81,6 @@ void ofxColorPalette_<PixelType>::generateComplementaryTriad(float spread)
     ofColor_<PixelType> complement = _baseColor.invert();
     float hue = complement.getHue();
     spread = spread * ofColor_<PixelType>::limit();
-    //BUG when blue one color gets white:
     _palette.push_back(ofColor_<PixelType>::fromHsb(normalizeValue(hue - spread),complement.getSaturation(),complement.getBrightness()));
     _palette.push_back(ofColor_<PixelType>::fromHsb(normalizeValue(hue + spread),complement.getSaturation(),complement.getBrightness()));
 }
@@ -136,7 +135,7 @@ float ofxColorPalette_<PixelType>::normalizeValue(float val)
         return val - limit;
     } else if(val < 0)
     {
-        return limit - val;
+        return limit + val;
     } else
     {
         return val;
