@@ -29,7 +29,7 @@ public:
     /// \brief generates a palette with the split complementary
     /// generates a palette of 3 colors
     /// see http://en.wikipedia.org/wiki/Color_scheme#Split-Complementary for description
-    void generateSplitComplementary();
+    void generateSplitComplementary(float spread = 0.2);
     
     /// \brief generates a palette of analogous colors
     /// \param numColors the number of Colors which should be generated
@@ -45,7 +45,10 @@ public:
     
 private:
     ofColor_<PixelType> _baseColor;
-    vector<ofColor_<PixelType> > _palette;    
+    vector<ofColor_<PixelType> > _palette;
+    
+    // used to "wrap around" float values (1.27 becomes 0.27, -0.3 becomes 0.7)
+    float normalizeValue(float val);
 };
 
 typedef ofxColorPalette_<unsigned char> ofxColorPalette;
