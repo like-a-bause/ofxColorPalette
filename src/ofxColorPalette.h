@@ -26,10 +26,13 @@ public:
     /// generates a palette of just 2 colors
     void generateComplementary();
     
-    /// \brief generates a palette with the split complementary
+    /// \brief generates 3 colors evenly distributed
+    void generateTriad();
+    
+    /// \brief generates a palette with the complementary triad
     /// generates a palette of 3 colors
     /// see http://en.wikipedia.org/wiki/Color_scheme#Split-Complementary for description
-    void generateSplitComplementary(float spread = 0.2);
+    void generateComplementaryTriad(float spread = 0.2);
     
     /// \brief generates a palette of analogous colors
     /// \param numColors the number of Colors which should be generated

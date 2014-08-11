@@ -62,14 +62,26 @@ void ofxColorPalette_<PixelType>::generateComplementary()
     
 }
 
-// # Split Complementary
+// # Triad
 template<typename PixelType>
-void ofxColorPalette_<PixelType>::generateSplitComplementary(float spread)
+void ofxColorPalette_<PixelType>::generateTriad()
+{
+    initGen();
+    float hue = _baseColor.getHue();
+    float stepSize = ofColor_<PixelType>::limit()/3;
+    _palette.push_back(ofColor_<PixelType>::fromHsb(normalizeValue(hue + stepSize),_baseColor.getSaturation(),_baseColor.getBrightness()));
+    _palette.push_back(ofColor_<PixelType>::fromHsb(normalizeValue(hue +  2 * stepSize),_baseColor.getSaturation(),_baseColor.getBrightness()));
+}
+
+// # Complementary Triad
+template<typename PixelType>
+void ofxColorPalette_<PixelType>::generateComplementaryTriad(float spread)
 {
     initGen();
     ofColor_<PixelType> complement = _baseColor.invert();
     float hue = complement.getHue();
     spread = spread * ofColor_<PixelType>::limit();
+    //BUG when blue one color gets white:
     _palette.push_back(ofColor_<PixelType>::fromHsb(normalizeValue(hue - spread),complement.getSaturation(),complement.getBrightness()));
     _palette.push_back(ofColor_<PixelType>::fromHsb(normalizeValue(hue + spread),complement.getSaturation(),complement.getBrightness()));
 }

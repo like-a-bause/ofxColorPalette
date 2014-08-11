@@ -20,9 +20,11 @@ public:
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
     
-    ofxColorPalette palette;
-    ofxShortColorPalette shortPalette;
-    ofxFloatColorPalette floatPalette;
-    
+    ofxColorPalette complement;
+    ofxColorPalette triad;
+    ofxColorPalette complementTriad;
+    ofxColorPalette monochrome;
+    ofxColorPalette analogue;
+    ofxColorPalette random;
     
 };
