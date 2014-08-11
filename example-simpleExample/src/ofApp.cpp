@@ -1,7 +1,7 @@
 #include "ofApp.h"
 
 #define NUM_COLOR 9
-#define RECT_SIZE 100
+#define RECT_SIZE 45
 #define PADDING 10
 //--------------------------------------------------------------
 void ofApp::setup(){
@@ -30,7 +30,7 @@ void ofApp::draw(){
     ofPopMatrix();
     
     
-    ofTranslate(0, RECT_SIZE + PADDING);
+    ofTranslate(0, RECT_SIZE);
     
     ofPushMatrix();
     for (int i = 0 ; i < NUM_COLOR; i++) {
