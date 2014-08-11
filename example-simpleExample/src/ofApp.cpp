@@ -1,6 +1,6 @@
 #include "ofApp.h"
 
-#define NUM_COLOR 6
+#define NUM_COLOR 9
 #define RECT_SIZE 100
 #define PADDING 10
 //--------------------------------------------------------------

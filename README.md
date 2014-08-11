@@ -1,2 +1,4 @@
-Addon for Creating Color Palettes using Algorithms.
-TODO
+ofxColorPalette
+===============
+
+openFramework addon for algorithmic generated color palettes.
