@@ -5,13 +5,13 @@
 #define PADDING 10
 //--------------------------------------------------------------
 void ofApp::setup(){
-    palette = ofxColorPalette(ofColor::red);
-    shortPalette = ofxShortColorPalette(ofShortColor::royalBlue);
-    floatPalette = ofxFloatColorPalette(ofFloatColor::fireBrick);
+    palette = ofxColorPalette(ofColor::fireBrick);
+    shortPalette = ofxShortColorPalette(ofShortColor::red);
+    floatPalette = ofxFloatColorPalette(ofFloatColor::red);
     
-    palette.generateAnalogous();
-    shortPalette.generateComplementary();
-    floatPalette.generateAnalogous(7,0.25);
+    palette.generateMonoChromatic();
+    shortPalette.generateSplitComplementary();
+    floatPalette.generateSplitComplementary();
 }
 
 //--------------------------------------------------------------

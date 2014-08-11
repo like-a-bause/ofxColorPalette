@@ -70,12 +70,8 @@ void ofxColorPalette_<PixelType>::generateSplitComplementary(float spread)
     ofColor_<PixelType> complement = _baseColor.invert();
     float hue = complement.getHue();
     spread = spread * ofColor_<PixelType>::limit();
-    ofLog() << hue;
-    ofLog() << normalizeValue(hue-spread);
-    ofLog() << normalizeValue(hue+spread);
     _palette.push_back(ofColor_<PixelType>::fromHsb(normalizeValue(hue - spread),complement.getSaturation(),complement.getBrightness()));
     _palette.push_back(ofColor_<PixelType>::fromHsb(normalizeValue(hue + spread),complement.getSaturation(),complement.getBrightness()));
-    //TODO
 }
 
 // # Analogous
