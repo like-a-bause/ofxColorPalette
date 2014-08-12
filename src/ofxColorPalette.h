@@ -5,6 +5,12 @@ template<typename PixelType>
 class ofxColorPalette_ {
     
 public:
+    /// \brief The Channel which should be the modifier for some Generators
+    /// generateMonoChromatic, generateComplementary,
+    enum ColorChannel{
+        SATURATION,
+        BRIGHTNESS
+    };
     ofxColorPalette_<PixelType>();
     ofxColorPalette_<PixelType>(ofColor_<PixelType> baseColor);
     ~ofxColorPalette_<PixelType>();
@@ -22,17 +28,17 @@ public:
     /// for now the base color is the brightest in the palette
     void generateMonoChromatic(int numColors = 4);
     
-    /// \brief generates a palette with the complementary of the base color
-    /// generates a palette of just 2 colors
-    void generateComplementary();
+    /// \brief generates a palette with a fade to the Complementary Color
+    ///
+    void generateComplementary(int numColors = 5, ColorChannel channel = SATURATION);
     
-    /// \brief generates 3 colors evenly distributed
+    /// \brief generates 3 colors evenly distributed in hue space
     void generateTriad();
     
     /// \brief generates a palette with the complementary triad
     /// generates a palette of 3 colors
     /// see http://en.wikipedia.org/wiki/Color_scheme#Split-Complementary for description
-    void generateComplementaryTriad(float spread = 0.2);
+    void generateComplementaryTriad(float spread = 0.083);
     
     /// \brief generates a palette of analogous colors
     /// \param numColors the number of Colors which should be generated
@@ -50,7 +56,7 @@ private:
     ofColor_<PixelType> _baseColor;
     vector<ofColor_<PixelType> > _palette;
     
-    // used to "wrap around" float values (1.27 becomes 0.27, -0.3 becomes 0.7)
+    // used to "wrap around" values to PixelType.limit() (1.27 becomes 0.27, -0.3 becomes 0.7)
     float normalizeValue(float val);
 };
 

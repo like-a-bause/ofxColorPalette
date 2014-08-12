@@ -54,10 +54,57 @@ void ofxColorPalette_<PixelType>::generateMonoChromatic(int numColors)
 
 // # Complementary
 template<typename PixelType>
-void ofxColorPalette_<PixelType>::generateComplementary()
+void ofxColorPalette_<PixelType>::generateComplementary(int numColors, ColorChannel channel)
 {
     initGen();
+        //hack only even numbers allowed, otherwise the code will bloat out.
+    if (numColors % 2 == 1) {
+        numColors -= 1;
+    }
+    float value;
+    switch (channel) {
+        case SATURATION:
+            value = _baseColor.getSaturation();
+            break;
+        case BRIGHTNESS:
+            value = _baseColor.getBrightness();
+            break;
+        default:
+            break;
+    }
+    // base is again brightest for now, second enum to define the "direction" {toBlack to White}?
+    int numLeft = numColors/2;
+    float stepSize = (2 * value) / numColors;
+    for (int i = 1; i < numLeft; i++) {
+        value -= stepSize;
+        switch (channel) {
+            case SATURATION:
+                 _palette.push_back(ofColor_<PixelType>::fromHsb(_baseColor.getHue(),value,_baseColor.getBrightness()));
+                break;
+            case BRIGHTNESS:
+                _palette.push_back(ofColor_<PixelType>::fromHsb(_baseColor.getHue(),_baseColor.getSaturation(),value));
+                break;
+            default:
+                break;
+        }
+       
+    }
+    
     ofColor_<PixelType> complement = _baseColor.invert();
+    for (int i = 1; i < numColors - numLeft; i++) {
+        switch (channel) {
+            case SATURATION:
+                _palette.push_back(ofColor_<PixelType>::fromHsb(complement.getHue(),value,complement.getBrightness()));
+                break;
+            case BRIGHTNESS:
+                _palette.push_back(ofColor_<PixelType>::fromHsb(complement.getHue(),complement.getSaturation(),value));
+                break;
+            default:
+                break;
+        }
+        value += stepSize;
+        
+    }
     _palette.push_back(complement);
     
 }
@@ -96,7 +143,7 @@ void ofxColorPalette_<PixelType>::generateAnalogous(int numColors, float spread)
     float stepSize = spread / numColors;// distribute the colors accross range
     stepSize = stepSize * ofColor_<PixelType>::limit(); // scale to PixelType
     numColors -=1;
-
+    
     int numLeft = numColors / 2;
     //fill in left colors
     float newHue;
