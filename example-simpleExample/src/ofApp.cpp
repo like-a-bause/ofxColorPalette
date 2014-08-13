@@ -163,6 +163,21 @@ void ofApp::draw(){
     ofDrawBitmapString("Random (Click to regenerate)", 0, 0);
     ofPopMatrix();
     
+    ofTranslate(10, RECT_SIZE+PADDING);
+    string info = "Press key for (s)aturation or (b)rightness \n";
+    info += "x-Axis (hue):" + ofToString(complement[0].getHue()) + "\n";
+    string modeString;
+    float modeValue;
+    if(mode == ofxColorPalette::SATURATION){
+        modeString = " (saturation)";
+        modeValue = saturation;
+    }else {
+        modeString = " (brightness)";
+        modeValue = brightness;
+    }
+    info += "y-Axis " + modeString + ofToString(modeValue) +  "\n";
+    ofDrawBitmapString(info,0,0);
+    
 }
 
 //--------------------------------------------------------------
