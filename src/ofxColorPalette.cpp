@@ -40,21 +40,44 @@ void ofxColorPalette_<PixelType>::generateRandom(int numColors)
 
 // # Monochromatic
 template<typename PixelType>
-void ofxColorPalette_<PixelType>::generateMonoChromatic(int numColors)
+void ofxColorPalette_<PixelType>::generateMonoChromatic(ColorChannel channel, int numColors)
 {
     initGen();
     
     //The base Color is the brightest of the generated
+    float value;
+    switch (channel) {
+        case SATURATION:
+            value = _baseColor.getSaturation();
+            break;
+        case BRIGHTNESS:
+            value = _baseColor.getBrightness();
+            break;
+        default:
+            break;
+    }
+    
     PixelType b = _baseColor.getBrightness();
-    float steps = b / numColors;
+    float steps = value / numColors;
     for (int i = 1; i < numColors; i++) {
-        _palette.push_back(ofColor_<PixelType>::fromHsb(_baseColor.getHue(),_baseColor.getSaturation(), b - i*steps));
+//        _palette.push_back(ofColor_<PixelType>::fromHsb(_baseColor.getHue(),_baseColor.getSaturation(), b - i*steps));
+        
+        switch (channel) {
+            case SATURATION:
+                _palette.push_back(ofColor_<PixelType>::fromHsb(_baseColor.getHue(),value - i* steps,_baseColor.getBrightness()));
+                break;
+            case BRIGHTNESS:
+                _palette.push_back(ofColor_<PixelType>::fromHsb(_baseColor.getHue(),_baseColor.getSaturation(),value - i* steps));
+                break;
+            default:
+                break;
+        }
     }
 }
 
 // # Complementary
 template<typename PixelType>
-void ofxColorPalette_<PixelType>::generateComplementary(int numColors, ColorChannel channel)
+void ofxColorPalette_<PixelType>::generateComplementary(ColorChannel channel, int numColors)
 {
     initGen();
         //hack only even numbers allowed, otherwise the code will bloat out.

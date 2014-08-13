@@ -21,10 +21,16 @@ public:
     void gotMessage(ofMessage msg);
     
     ofxColorPalette complement;
+    ofxColorPalette complementBrightness;
     ofxColorPalette triad;
     ofxColorPalette complementTriad;
     ofxColorPalette monochrome;
+    ofxColorPalette monochromeBrightness;
     ofxColorPalette analogue;
     ofxColorPalette random;
+    
+    ofxColorPalette::ColorChannel mode;
+    float brightness;
+    float saturation;
     
 };

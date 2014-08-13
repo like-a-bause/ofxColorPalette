@@ -26,11 +26,11 @@ public:
     
     /// \brief generates a monochromatic color palette
     /// for now the base color is the brightest in the palette
-    void generateMonoChromatic(int numColors = 4);
+    void generateMonoChromatic(ColorChannel channel = SATURATION, int numColors = 4);
     
     /// \brief generates a palette with a fade to the Complementary Color
     ///
-    void generateComplementary(int numColors = 5, ColorChannel channel = SATURATION);
+    void generateComplementary(ColorChannel channel = SATURATION, int numColors = 4);
     
     /// \brief generates 3 colors evenly distributed in hue space
     void generateTriad();
