@@ -45,6 +45,9 @@ public:
     /// \param spread the area (between 0-1) in which the hue is expanded
     void generateAnalogous(int numColors = 5, float spread = 0.2);
     
+    /// \brief get a reference to a random Color which is IN the palette
+    ofColor_<PixelType> & getRandom();
+    
     //### Operator overloading
     const ofColor_<PixelType> & operator [] (int n) const;
     ofColor_<PixelType> & operator [] (int n);

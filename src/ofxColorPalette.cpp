@@ -60,7 +60,7 @@ void ofxColorPalette_<PixelType>::generateMonoChromatic(ColorChannel channel, in
     PixelType b = _baseColor.getBrightness();
     float steps = value / numColors;
     for (int i = 1; i < numColors; i++) {
-//        _palette.push_back(ofColor_<PixelType>::fromHsb(_baseColor.getHue(),_baseColor.getSaturation(), b - i*steps));
+        //        _palette.push_back(ofColor_<PixelType>::fromHsb(_baseColor.getHue(),_baseColor.getSaturation(), b - i*steps));
         
         switch (channel) {
             case SATURATION:
@@ -80,7 +80,7 @@ template<typename PixelType>
 void ofxColorPalette_<PixelType>::generateComplementary(ColorChannel channel, int numColors)
 {
     initGen();
-        //hack only even numbers allowed, otherwise the code will bloat out.
+    //hack only even numbers allowed, otherwise the code will bloat out.
     if (numColors % 2 == 1) {
         numColors -= 1;
     }
@@ -102,7 +102,7 @@ void ofxColorPalette_<PixelType>::generateComplementary(ColorChannel channel, in
         value -= stepSize;
         switch (channel) {
             case SATURATION:
-                 _palette.push_back(ofColor_<PixelType>::fromHsb(_baseColor.getHue(),value,_baseColor.getBrightness()));
+                _palette.push_back(ofColor_<PixelType>::fromHsb(_baseColor.getHue(),value,_baseColor.getBrightness()));
                 break;
             case BRIGHTNESS:
                 _palette.push_back(ofColor_<PixelType>::fromHsb(_baseColor.getHue(),_baseColor.getSaturation(),value));
@@ -110,7 +110,7 @@ void ofxColorPalette_<PixelType>::generateComplementary(ColorChannel channel, in
             default:
                 break;
         }
-       
+        
     }
     
     ofColor_<PixelType> complement = _baseColor.invert();
@@ -179,6 +179,11 @@ void ofxColorPalette_<PixelType>::generateAnalogous(int numColors, float spread)
         newHue = normalizeValue(hue + i * stepSize);
         _palette.push_back(ofColor_<PixelType>::fromHsb(newHue,_baseColor.getSaturation(),_baseColor.getBrightness()));
     }
+}
+
+template<typename PixelType>
+ofColor_<PixelType> & ofxColorPalette_<PixelType>::getRandom(){
+    return _palette[floor(ofRandom(0,size() -1) + 0.5)];
 }
 
 template<typename PixelType>
